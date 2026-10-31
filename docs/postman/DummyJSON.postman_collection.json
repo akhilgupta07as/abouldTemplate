@@ -1,0 +1,45 @@
+{
+  "info": {
+    "name": "Abould ADA — DummyJSON",
+    "description": "Sample requests used by the API integration module.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"emilys\",\n  \"password\": \"emilyspass\"\n}"
+        },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "Products list",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/products?limit=10&skip=0"
+      }
+    },
+    {
+      "name": "Products search",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/products/search?q=phone"
+      }
+    },
+    {
+      "name": "Users list",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/users?limit=10"
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "https://dummyjson.com" }
+  ]
+}

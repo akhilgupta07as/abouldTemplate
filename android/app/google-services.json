@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "806267939124",
+    "project_id": "adaproject-d13b2",
+    "storage_bucket": "adaproject-d13b2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806267939124:android:f99684a7c8bf4b3f6f5d61",
+        "android_client_info": {
+          "package_name": "com.example.ada"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtxkdsf4KkgmM-f1LaM6GONbsNYoevbFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

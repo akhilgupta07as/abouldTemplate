@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Optional legacy shared config (current app uses users/{uid}/workspace/config).
+    match /ada_config/{document=**} {
+      allow read, write: if request.auth != null;
+    }
+    // Profile, workspace config, etc.
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    // Flat todo collection: userref, todoname, iscompleted, createdAt.
+    match /todo/{todoId} {
+      allow read, update, delete: if request.auth != null
+        && resource.data.userref == request.auth.uid;
+      allow create: if request.auth != null
+        && request.resource.data.userref == request.auth.uid;
+    }
+  }
+}
