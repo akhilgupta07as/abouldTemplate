@@ -8,18 +8,30 @@ on:
 
 jobs:
   analyze-and-test:
+    name: Analyze & Automated Test Suite
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
+
+      - name: Prepare local config files
+        run: |
+          if [ ! -f dart_defines/supabase.local.json ]; then
+            cp dart_defines/supabase.local.json.example dart_defines/supabase.local.json
+          fi
+
       - name: Install dependencies
         run: flutter pub get
+
       - name: Generate localizations
         run: flutter gen-l10n
-      - name: Analyze
+
+      - name: Analyze code standards
         run: flutter analyze
-      - name: Test
-        run: flutter test
+
+      - name: Execute automated unit, widget, and workflow tests
+        run: flutter test --reporter expanded

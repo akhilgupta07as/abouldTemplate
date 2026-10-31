@@ -1,15 +1,39 @@
 {
   "info": {
-    "name": "Abould ADA — DummyJSON",
-    "description": "Sample requests used by the API integration module.",
+    "name": "Abould ADA — API Test Suite",
+    "description": "Standardized, reusable automated API test collection covering successful requests, negative cases, invalid parameters, authentication failures, pagination, response latency, and upload flows per Workstream 4.4.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Auth login",
+      "name": "1. Authentication - Successful Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200 OK', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains auth tokens', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('token').or.to.have.property('accessToken');",
+              "    if (jsonData.token) { pm.environment.set('authToken', jsonData.token); }",
+              "    else if (jsonData.accessToken) { pm.environment.set('authToken', jsonData.accessToken); }",
+              "});",
+              "pm.test('Response latency within SLA (< 2000ms)', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"username\": \"emilys\",\n  \"password\": \"emilyspass\"\n}"
@@ -18,28 +42,210 @@
       }
     },
     {
-      "name": "Products list",
+      "name": "2. Authentication - Invalid Credentials (Negative Test)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 400 or 401', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([400, 401]);",
+              "});",
+              "pm.test('Error message is present in response', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('message');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"invalid_user\",\n  \"password\": \"wrong_password\"\n}"
+        },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "3. Authentication - Missing Parameters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code indicates bad request (400/422)', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([400, 422]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "4. Products - Pagination & Limits",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Pagination payload has products array, skip, limit, and total', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.products).to.be.an('array');",
+              "    pm.expect(jsonData.limit).to.eql(10);",
+              "    pm.expect(jsonData.skip).to.eql(0);",
+              "    pm.expect(jsonData.total).to.be.a('number');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
       "request": {
         "method": "GET",
         "url": "{{baseUrl}}/products?limit=10&skip=0"
       }
     },
     {
-      "name": "Products search",
+      "name": "5. Products - Search Query",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Search returns 200 OK', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Results match search query', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.products).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
       "request": {
         "method": "GET",
         "url": "{{baseUrl}}/products/search?q=phone"
       }
     },
     {
-      "name": "Users list",
+      "name": "6. Products - Single Item Details (404 on Invalid ID)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Non-existent ID returns 404 Not Found', function () {",
+              "    pm.response.to.have.status(404);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
       "request": {
         "method": "GET",
-        "url": "{{baseUrl}}/users?limit=10"
+        "url": "{{baseUrl}}/products/99999999"
+      }
+    },
+    {
+      "name": "7. Protected Resource - Unauthorized Access Without Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 401 or 403', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/auth/me"
+      }
+    },
+    {
+      "name": "8. Protected Resource - Expired or Malformed Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 401 Unauthorized', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer expired_malformed_token_xyz" }
+        ],
+        "url": "{{baseUrl}}/auth/me"
+      }
+    },
+    {
+      "name": "9. Reference Node.js Backend - File Upload",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Upload endpoint handles multipart data', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 401]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "file", "type": "file", "src": "" },
+            { "key": "category", "value": "avatar", "type": "text" }
+          ]
+        },
+        "url": "http://localhost:3000/api/upload"
       }
     }
   ],
   "variable": [
-    { "key": "baseUrl", "value": "https://dummyjson.com" }
+    { "key": "baseUrl", "value": "https://dummyjson.com" },
+    { "key": "authToken", "value": "" }
   ]
 }

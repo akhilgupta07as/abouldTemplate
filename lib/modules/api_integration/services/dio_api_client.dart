@@ -30,7 +30,7 @@ class DioApiClient {
             },
           ),
         ) {
-    _dio.interceptors.add(AuthInterceptor(secureStorage));
+  _dio.interceptors.add(AuthInterceptor(secureStorage));
     _dio.interceptors.add(
       TokenRefreshInterceptor(dio: _dio, secureStorage: secureStorage),
     );
@@ -125,6 +125,58 @@ class DioApiClient {
         path,
         data: data,
         queryParameters: queryParameters,
+      );
+    } on DioException catch (e) {
+      throw ApiErrorMapper.fromDio(e);
+    }
+  }
+
+  /// Uploads a file using multipart form-data.
+  Future<Response<T>> uploadFile<T>(
+    String path, {
+    required String filePath,
+    required String fieldName,
+    String? fileName,
+    Map<String, dynamic>? extraFields,
+    Map<String, dynamic>? queryParameters,
+    ProgressCallback? onSendProgress,
+  }) async {
+    try {
+      final multipartFile = await MultipartFile.fromFile(
+        filePath,
+        filename: fileName,
+      );
+      final formData = FormData.fromMap({
+        fieldName: multipartFile,
+        if (extraFields != null) ...extraFields,
+      });
+
+      return await _dio.post<T>(
+        path,
+        data: formData,
+        queryParameters: queryParameters,
+        onSendProgress: onSendProgress,
+      );
+    } on DioException catch (e) {
+      throw ApiErrorMapper.fromDio(e);
+    }
+  }
+
+  /// Downloads a remote file to a local destination file path.
+  Future<Response> downloadFile(
+    String urlPath,
+    String savePath, {
+    ProgressCallback? onReceiveProgress,
+    Map<String, dynamic>? queryParameters,
+    Object? data,
+  }) async {
+    try {
+      return await _dio.download(
+        urlPath,
+        savePath,
+        queryParameters: queryParameters,
+        data: data,
+        onReceiveProgress: onReceiveProgress,
       );
     } on DioException catch (e) {
       throw ApiErrorMapper.fromDio(e);
