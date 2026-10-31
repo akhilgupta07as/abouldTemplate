@@ -135,7 +135,7 @@ class AdaBottomNavigation extends StatelessWidget {
         for (final item in items)
           NavigationDestination(
             icon: item.icon,
-            selectedIcon: item.activeIcon ?? item.icon,
+            selectedIcon: item.activeIcon,
             label: item.label!,
           ),
       ],

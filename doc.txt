@@ -1,0 +1,685 @@
+﻿Abould – Internal App Development Accelerator (ADA)
+Technical Assignment & Development Requirements
+Project Type: Internal R&D / Engineering Infrastructure
+Priority: High
+Assigned To: Mobile App Developer
+Technology: Flutter, Dart, Firebase, REST APIs, Node.js, Supabase, Automated Testing Tools
+________________
+
+
+1. PROJECT OVERVIEW
+1.1 Project Vision
+The objective of this project is to build an internal application development infrastructure for Abould that helps us develop future client applications faster, improve development quality, reduce repetitive development work, and establish a standardized testing and quality assurance process.
+Currently, when we receive a new application development project, developers often need to implement common functionalities, configure project architecture, integrate APIs, develop reusable components, and perform repetitive testing.
+We want to minimize this repetitive work by creating a centralized development framework that can be reused across future projects.
+This should become a long-term internal engineering asset for Abould.
+1.2 Primary Objectives
+The project must achieve the following objectives:
+1. Improve Development Speed: Reduce the time required to start and develop new applications by providing ready-to-use project structures, reusable components, and prebuilt modules.
+2. Improve Development Quality: Establish standardized coding practices, reusable architecture, error handling, and development guidelines.
+3. Improve Testing: Build a structured automated testing framework to identify bugs before applications are delivered to clients.
+4. Reduce Repetitive Work: Avoid developing common functionalities from scratch in every new project.
+5. Improve Team Productivity: Allow other developers to use the framework without depending on the developer who initially created it.
+6. Establish Standardization: Ensure all future applications follow consistent development, testing, and deployment practices.
+________________
+
+
+2. PROJECT SCOPE AND WORKSTREAMS
+The project is divided into six major workstreams.
+WORKSTREAM 1: REUSABLE FLUTTER STARTER KIT
+Objective
+Develop a production-ready Flutter starter kit that can be used as the foundation for future mobile application projects.
+Whenever Abould receives a new Flutter application project, developers should be able to initialize the project using this starter kit instead of creating the entire structure from scratch.
+2.1 Project Architecture
+Create a standardized and scalable folder structure.
+The architecture should include:
+* Core
+* Configuration
+* Constants
+* Models
+* Services
+* Repositories
+* Providers / State Management
+* Features
+* Common Widgets
+* Routing
+* Utilities
+* Theme
+* Localization
+* Tests
+The architecture should follow clean separation of responsibilities.
+Business logic, UI, API communication, and data handling should not be unnecessarily mixed.
+Select an appropriate state management solution, such as Riverpod or Bloc, and document the reasoning behind the choice.
+2.2 Authentication Module
+Build a reusable authentication module.
+Required functionalities:
+* User registration.
+* User login.
+* Logout.
+* Forgot password.
+* Password reset.
+* OTP verification.
+* Email verification.
+* Session management.
+* Authentication state management.
+* Token storage.
+* Automatic token refresh where supported.
+* Protected routes.
+* Authentication error handling.
+The module should be configurable to support different authentication providers.
+Provide integration examples for Firebase Authentication and REST API-based authentication.
+2.3 API Integration Module
+Develop a reusable API communication layer.
+Required functionalities:
+* Centralized HTTP client.
+* GET, POST, PUT, PATCH and DELETE requests.
+* Request and response interceptors.
+* Authentication token management.
+* API error handling.
+* Timeout management.
+* Retry handling where appropriate.
+* JSON serialization and deserialization.
+* Pagination support.
+* File upload.
+* File download.
+* Request logging in development mode.
+* Environment-based API configuration.
+The API service must be reusable across different applications.
+2.4 Firebase Integration Module
+Prepare a reusable Firebase integration structure.
+Include:
+* Firebase initialization.
+* Firebase Authentication.
+* Cloud Firestore.
+* Firebase Cloud Messaging.
+* Push notification handling.
+* Firebase Storage.
+* Crashlytics.
+* Analytics.
+* Remote Config where required.
+Provide proper documentation for enabling and configuring Firebase for a new project.
+2.5 Supabase Integration Module
+Prepare a reusable Supabase integration structure.
+Include:
+* Supabase initialization.
+* Authentication.
+* Database queries.
+* File storage.
+* User session management.
+* Realtime subscriptions.
+* Error handling.
+The integration should be modular so that future projects can use Firebase, Supabase, or custom REST APIs without unnecessary dependencies on one another.
+2.6 Other Common Functionalities
+Implement reusable services for:
+* Local storage.
+* Secure storage.
+* Image picker.
+* Camera integration.
+* File picker.
+* Image compression.
+* Location permissions.
+* GPS location access.
+* Network connectivity detection.
+* Deep linking.
+* Push notification navigation.
+* App lifecycle handling.
+* Theme management.
+* Light and dark mode.
+* Localization.
+* Loading states.
+* Empty states.
+* Error states.
+Expected Deliverable:
+A fully functional Flutter starter kit that another developer can clone, configure, and use to initialize a new project.
+________________
+
+
+WORKSTREAM 2: REUSABLE UI COMPONENT LIBRARY
+Objective
+Develop a centralized library of reusable Flutter UI components.
+The objective is to avoid repeatedly creating standard UI elements for every new application.
+All components must be configurable, maintainable, and reusable.
+3.1 Required Components
+Buttons
+* Primary button.
+* Secondary button.
+* Outlined button.
+* Text button.
+* Icon button.
+* Loading button.
+* Disabled button.
+Input Components
+* Standard text field.
+* Password field.
+* Email field.
+* Phone number field.
+* Search field.
+* Multiline text field.
+* Number input.
+* Date picker.
+* Time picker.
+* Dropdown.
+* Searchable dropdown.
+* Checkbox.
+* Radio button.
+* Switch.
+Navigation Components
+* Bottom navigation bar.
+* Navigation drawer.
+* App bar.
+* Tab navigation.
+* Custom back navigation.
+* Breadcrumb-style navigation where appropriate.
+Display Components
+* Cards.
+* List tiles.
+* Profile cards.
+* Image cards.
+* Status badges.
+* Progress indicators.
+* Rating components.
+* Avatar components.
+* Dividers.
+Feedback Components
+* Success dialogs.
+* Error dialogs.
+* Confirmation dialogs.
+* Bottom sheets.
+* Toast messages.
+* Snackbars.
+* Loading indicators.
+* Shimmer loading.
+* Empty states.
+* Error states.
+Media Components
+* Image picker.
+* Image preview.
+* Image gallery.
+* File upload component.
+* Document preview.
+* Video preview where required.
+3.2 Component Requirements
+Every component must:
+1. Support configurable colors.
+2. Support configurable dimensions.
+3. Support custom text and labels.
+4. Support callbacks and interactions.
+5. Handle loading and disabled states where applicable.
+6. Follow consistent design principles.
+7. Include basic usage examples.
+8. Include widget tests for important behavior.
+Do not hardcode a single application's branding into the component library.
+3.3 Design System
+Create a basic reusable design system containing:
+* Color palette.
+* Typography.
+* Font sizes.
+* Font weights.
+* Spacing system.
+* Border radius.
+* Shadows.
+* Button styles.
+* Input styles.
+* Component themes.
+Allow individual projects to customize their branding without modifying the underlying component logic.
+Expected Deliverable:
+A reusable Flutter UI component library with a demo screen showcasing every implemented component.
+________________
+
+
+WORKSTREAM 3: BACKEND AND API INTEGRATION FRAMEWORK
+Objective
+Create standardized integration patterns that can be reused when connecting mobile applications with different backend systems.
+4.1 Required Implementation
+Develop reusable examples and service structures for:
+* REST API integration.
+* Node.js and Express.js backend integration.
+* Firebase integration.
+* Supabase integration.
+* PostgreSQL-backed API integration.
+* Authentication and authorization.
+* File uploads.
+* Push notifications.
+* Pagination.
+* Realtime communication.
+4.2 Standardized API Handling
+Implement:
+* Centralized response handling.
+* Standardized success responses.
+* Standardized error responses.
+* Authentication middleware integration examples.
+* Token expiration handling.
+* Request validation examples.
+* API logging.
+* API timeout handling.
+* Network error handling.
+4.3 Security Standards
+Implement and document:
+* Secure token storage.
+* Environment variable management.
+* Avoiding hardcoded API credentials.
+* Secure API communication using HTTPS.
+* Input validation.
+* Authentication and authorization checks.
+* Sensitive data handling.
+* Appropriate logging practices.
+* Secure file upload handling.
+Never expose private API keys, service-role keys, or sensitive credentials inside the mobile application.
+Expected Deliverable:
+A reusable integration framework with sample API integrations and documentation.
+________________
+
+
+WORKSTREAM 4: AUTOMATED TESTING FRAMEWORK
+Objective
+Develop an automated testing framework that helps Abould identify bugs before delivering applications to clients.
+This is one of the most important parts of the assignment.
+We want to move away from relying entirely on manual testing.
+5.1 Unit Testing
+Implement unit tests for:
+* Business logic.
+* Utility functions.
+* Data processing.
+* Validation functions.
+* API response parsing.
+* Repository logic.
+* Authentication logic.
+* State management.
+Every important business logic function should have appropriate test coverage.
+5.2 Widget Testing
+Create automated widget tests for:
+* Buttons.
+* Text fields.
+* Dropdowns.
+* Forms.
+* Dialogs.
+* Navigation components.
+* Loading indicators.
+* Error states.
+* Reusable UI components.
+Verify that components behave correctly under different conditions.
+5.3 Integration Testing
+Create integration tests for complete application workflows.
+Mandatory scenarios:
+1. User registration.
+2. User login.
+3. Invalid login credentials.
+4. Forgot password.
+5. Logout.
+6. Profile update.
+7. Image upload.
+8. API data loading.
+9. Form submission.
+10. Navigation between screens.
+11. Session expiration.
+12. Internet disconnection.
+13. App background and foreground behavior.
+5.4 API Testing
+Use Postman or an equivalent tool to create reusable API test collections.
+Test:
+* Successful API requests.
+* Invalid requests.
+* Missing parameters.
+* Unauthorized requests.
+* Expired tokens.
+* Invalid data.
+* Server errors.
+* API response time.
+* Pagination.
+* File uploads.
+Create a reusable collection that can be configured for future projects.
+5.5 Regression Testing
+Create a process to rerun existing test cases whenever new features or code changes are introduced.
+The objective is to ensure that new development does not break previously working functionality.
+5.6 Performance Testing
+Test the application for:
+* Slow screen rendering.
+* Unnecessary widget rebuilds.
+* Memory consumption.
+* Large image loading.
+* API response delays.
+* Application startup time.
+* Scrolling performance.
+* Background processing issues.
+Identify bottlenecks and document optimization recommendations.
+5.7 Crash and Stability Testing
+Test the application under different conditions:
+* Network failure.
+* Poor internet connectivity.
+* API timeout.
+* Invalid backend responses.
+* Application interruption.
+* Permission denial.
+* Session expiration.
+* Unexpected application closure.
+Integrate Firebase Crashlytics or an equivalent crash reporting solution in the demo application.
+5.8 Tools to Research and Implement
+Evaluate the following tools:
+* Flutter Test.
+* Flutter Integration Test.
+* Patrol.
+* Postman.
+* Firebase Test Lab.
+* BrowserStack.
+* GitHub Actions.
+The developer should select the tools that best fit our requirements.
+Do not integrate every tool unnecessarily. Document the selected stack and the reason for choosing it.
+5.9 Automated Testing Reports
+The testing system should generate reports showing:
+* Total test cases.
+* Passed test cases.
+* Failed test cases.
+* Skipped test cases.
+* Test execution duration.
+* Failed test details.
+* Error logs.
+* Build status.
+The test suite should be executable locally and through CI/CD.
+Expected Deliverable:
+A working automated testing framework with sample test cases, reusable API collections, and test execution reports.
+________________
+
+
+WORKSTREAM 5: DEVELOPMENT QUALITY AND PERFORMANCE STANDARDS
+Objective
+Establish a common development quality standard for all Abould developers.
+The objective is to ensure that applications are maintainable, scalable, secure, and optimized.
+6.1 Coding Standards
+Prepare coding guidelines covering:
+* Naming conventions.
+* Folder structure.
+* File organization.
+* Function organization.
+* Code formatting.
+* Documentation practices.
+* Error handling.
+* Dependency management.
+* Reusable architecture.
+* State management.
+* Code commenting.
+Use Dart analysis and linting tools to enforce coding standards.
+6.2 Code Quality
+Implement a quality review checklist.
+Every developer should verify:
+* No unnecessary duplicate code.
+* No unused dependencies.
+* No unnecessary API calls.
+* No hardcoded sensitive credentials.
+* No unhandled exceptions.
+* No unnecessary widget rebuilds.
+* No memory leaks.
+* No major performance issues.
+* No broken navigation.
+* No debug-only code in production builds.
+6.3 Performance Optimization
+Research and implement optimization techniques for:
+* Application startup.
+* Screen rendering.
+* API requests.
+* Image loading.
+* Image caching.
+* Pagination.
+* Local caching.
+* Memory management.
+* Background operations.
+* Large lists.
+* Network usage.
+Create a benchmark using the demo application and document the improvements.
+6.4 Code Review Checklist
+Prepare a reusable checklist that developers must complete before submitting their work for review.
+The checklist should cover:
+1. Code quality.
+2. Architecture.
+3. UI consistency.
+4. API integration.
+5. Error handling.
+6. Security.
+7. Performance.
+8. Unit testing.
+9. Integration testing.
+10. Regression testing.
+Expected Deliverable:
+A documented development standard and code review checklist that can be adopted across Abould projects.
+________________
+
+
+WORKSTREAM 6: INTERNAL DEVELOPER DOCUMENTATION
+Objective
+Prepare complete documentation so that any developer in the company can use the starter kit, reusable components, and testing framework.
+The system must not depend on a single developer for maintenance or usage.
+7.1 Required Documentation
+Prepare documentation covering:
+1. Project architecture.
+2. How to initialize a new Flutter project.
+3. How to configure Firebase.
+4. How to configure Supabase.
+5. How to integrate REST APIs.
+6. How to implement authentication.
+7. How to use reusable UI components.
+8. How to configure environments.
+9. How to run unit tests.
+10. How to run widget tests.
+11. How to run integration tests.
+12. How to execute API test collections.
+13. How to generate test reports.
+14. How to debug common issues.
+15. How to generate Android APK/AAB.
+16. How to prepare production builds.
+17. How to configure CI/CD.
+Documentation must include code examples, screenshots where useful, and practical implementation instructions.
+________________
+
+
+8. DEMONSTRATION APPLICATION
+After completing the reusable framework, develop a small demonstration application using the same framework.
+The demo application should demonstrate that all major modules work together.
+Required Demo Features
+* User registration and login.
+* User profile.
+* Dashboard.
+* API integration.
+* Data listing.
+* Search and pagination.
+* Form submission.
+* Image upload.
+* Push notification handling.
+* Local storage.
+* Light and dark theme.
+* Error handling.
+* Loading states.
+* Logout.
+The demo application must use the reusable starter kit and UI component library.
+Do not build the demo application separately from the framework.
+The objective is to prove that the framework can be used in a real project.
+________________
+
+
+9. ADDITIONAL R&D OPPORTUNITIES
+After completing the core requirements, evaluate the following improvements.
+These are secondary priorities and should not delay the main project.
+9.1 AI-Powered Bug Detection
+Research whether we can build an internal system that:
+* Collects application crash logs.
+* Analyzes error messages.
+* Reads stack traces.
+* Categorizes bugs.
+* Identifies possible root causes.
+* Suggests potential fixes.
+The system should assist developers, not automatically apply unreviewed code changes.
+9.2 Automated UI Comparison
+Research a system that can:
+* Capture screenshots of application screens.
+* Compare screenshots against approved designs.
+* Detect visual differences.
+* Identify missing UI elements.
+* Detect spacing and alignment inconsistencies.
+* Generate visual comparison reports.
+9.3 Internal Code and Module Repository
+Explore a centralized repository where developers can find reusable:
+* Authentication modules.
+* Payment integrations.
+* Notification systems.
+* API services.
+* UI components.
+* Maps integrations.
+* Chat modules.
+* File upload modules.
+* Third-party integrations.
+Each module should include documentation and version information.
+9.4 Automated Build and Deployment
+Explore CI/CD automation to:
+* Run tests automatically.
+* Validate code changes.
+* Generate Android builds.
+* Generate iOS builds where the required Apple build environment is available.
+* Maintain staging and production configurations.
+* Generate build reports.
+
+
+10. FINAL DELIVERABLES
+At the end of the assignment, the developer must submit all of the following:
+No.
+	Deliverable
+	Requirement
+	1
+	Flutter Starter Kit
+	Working reusable project
+	2
+	Authentication Module
+	Reusable authentication implementation
+	3
+	API Framework
+	Centralized API integration
+	4
+	Firebase Integration
+	Documented reusable integrations
+	5
+	Supabase Integration
+	Documented reusable integrations
+	6
+	UI Component Library
+	Working reusable components
+	7
+	Design System
+	Colors, typography and spacing
+	8
+	Automated Testing
+	Unit, widget and integration tests
+	9
+	API Testing
+	Reusable API test collections
+	10
+	Regression Testing
+	Reusable regression test suite
+	11
+	Performance Report
+	Benchmarks and optimization findings
+	12
+	Code Quality Standards
+	Coding and review guidelines
+	13
+	Demo Application
+	Fully functional demonstration
+	14
+	Documentation
+	Complete developer guide
+	15
+	Source Code
+	Organized repositories and access
+	All source code, documentation, configuration examples, and project assets must be maintained in Abould's designated repositories.
+Do not use client-owned code, credentials, private datasets, or confidential assets without authorization.
+________________
+
+
+11. ACCEPTANCE CRITERIA
+The assignment will be considered complete only when the following conditions are met.
+Development
+* A new basic Flutter application can be initialized using the starter kit in approximately 30 minutes.
+* The project architecture is documented.
+* Reusable components work independently.
+* Authentication can be configured for a new project.
+* API integration works with a sample backend.
+* Firebase and Supabase integration examples are functional.
+Testing
+* Unit tests are implemented for critical business logic.
+* Widget tests cover the important reusable components.
+* Integration tests cover the mandatory application workflows.
+* API test collections are available.
+* Regression tests can be executed repeatedly.
+* Test reports clearly identify passed and failed tests.
+* No known critical or high-severity issues remain in the demo application.
+Code Quality
+* No unnecessary hardcoded credentials.
+* No major architecture issues.
+* No known critical security vulnerabilities.
+* Appropriate error handling.
+* Code formatting and linting configured.
+* Performance benchmarks documented.
+Documentation
+* Another developer can initialize a project independently.
+* Another developer can configure integrations independently.
+* Another developer can run the test suite independently.
+* All major modules have usage examples.
+Demonstration
+The developer must demonstrate the entire framework using the sample application.
+A verbal explanation or screenshots alone will not be considered sufficient.
+________________
+
+
+12. PROGRESS REPORTING
+The developer must provide regular progress updates.
+Every update should include:
+1. Completed Tasks
+* What has been completed?
+* What is working?
+2. Current Work
+* What is currently being developed?
+* Which module is in progress?
+3. Technical Challenges
+* Any blockers?
+* Any technical limitations?
+* Any decisions requiring approval?
+4. Next Steps
+* What will be completed next?
+* Expected completion date?
+5. Evidence
+* Git commits.
+* Screenshots.
+* Demo videos.
+* Test execution reports.
+* Working code.
+The project should be maintained in a Git repository with meaningful commits and clear module organization.
+________________
+
+
+13. IMPORTANT DEVELOPMENT INSTRUCTIONS
+Please follow these instructions throughout the assignment.
+1. Do not spend the entire assignment researching tools. Research briefly, make technical decisions, and start implementing.
+2. Prioritize working functionality over theoretical documentation.
+3. Build everything in a reusable and modular manner.
+4. Avoid hardcoding project-specific values.
+5. Do not introduce unnecessary dependencies.
+6. Test every major module before marking it complete.
+7. Document technical decisions and implementation steps.
+8. Ensure the code is understandable for other developers.
+9. Do not compromise security or performance for development speed.
+10. Focus on creating something that will genuinely reduce development time in our future client projects.
+11. If you identify a better technical approach, discuss it before making major architectural changes.
+12. Do not consider the assignment complete until the demo application and testing framework are functional.
+________________
+
+
+14. FINAL PROJECT GOAL
+The ultimate goal is to establish Abould's internal application development infrastructure.
+We want a system where:
+* Developers do not need to start every application from scratch.
+* Common features are already available as reusable modules.
+* Development architecture is standardized.
+* API integrations become faster.
+* UI implementation becomes faster.
+* Automated testing catches bugs before client delivery.
+* Code quality remains consistent across projects.
+* New developers can onboard more quickly.
+* Production applications become more reliable.
+Success will not be measured by the number of files or lines of code produced. It will be measured by how much development time we save, how many bugs we prevent, and how effectively the entire team can use the infrastructure in real client projects.
+This project should become a permanent internal engineering asset of Abould, not just a one-time development assignment.

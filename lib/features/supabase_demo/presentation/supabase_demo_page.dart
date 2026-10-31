@@ -1,5 +1,3 @@
-import 'package:abould_ada/core/config/auth_backend.dart';
-
 import 'package:abould_ada/core/di/providers.dart';
 
 import 'package:abould_ada/core/localization/l10n_extensions.dart';
@@ -254,7 +252,7 @@ class SupabaseDemoPage extends ConsumerWidget {
 
                   const SizedBox(height: AppSpacing.sm),
 
-                  if (supabaseSession && user != null)
+                  if (supabaseSession)
 
                     Text(
 

@@ -12,6 +12,12 @@ abstract class FirebaseMessagingService {
   Future<String?> getToken();
 
   Stream<String> get onTokenRefresh;
+
+  /// Stream of messages when user taps a notification and the app is in background.
+  Stream<RemoteMessage> get onMessageOpenedApp;
+
+  /// Message that caused the application to open from a terminated state.
+  Future<RemoteMessage?> getInitialMessage();
 }
 
 class LiveFirebaseMessagingService implements FirebaseMessagingService {
@@ -42,6 +48,13 @@ class LiveFirebaseMessagingService implements FirebaseMessagingService {
 
   @override
   Stream<String> get onTokenRefresh => _messaging.onTokenRefresh;
+
+  @override
+  Stream<RemoteMessage> get onMessageOpenedApp =>
+      FirebaseMessaging.onMessageOpenedApp;
+
+  @override
+  Future<RemoteMessage?> getInitialMessage() => _messaging.getInitialMessage();
 }
 
 class NoOpFirebaseMessagingService implements FirebaseMessagingService {
@@ -53,4 +66,10 @@ class NoOpFirebaseMessagingService implements FirebaseMessagingService {
 
   @override
   Stream<String> get onTokenRefresh => const Stream.empty();
+
+  @override
+  Stream<RemoteMessage> get onMessageOpenedApp => const Stream.empty();
+
+  @override
+  Future<RemoteMessage?> getInitialMessage() async => null;
 }
